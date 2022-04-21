@@ -22,7 +22,7 @@ cs = machine.Pin(5, Pin.OUT)
 ad5328_ = ad5328.AD5328(spi, cs)
 
 # set voltage
-ad5328_.set_voltage(ad5328.Channel.A, 4095)
+ad5328_.set_and_update_voltage(ad5328.Channel.A, 4095)
 ```
 
 ## Reference

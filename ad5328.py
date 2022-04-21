@@ -62,12 +62,6 @@ class AD5328:
     self.spi = spi
     self.cs = cs
   
-  # def use_internal_reference(self):
-  #   payload:Payload = Payload()
-  #   payload.set_control(Prefix.InternalReferenceStatic)
-  #   payload.set_feature(Feature.InternalReference)
-  #   self.__write__(payload)
-
   def set_gain(self):
     payload:Payload = Payload()
     payload.set_prefix(Prefix.Control)
@@ -76,7 +70,7 @@ class AD5328:
     self.__write__(payload)
 
   """set voltage to specified channel"""
-  def set_voltage(self, channel, voltage):
+  def set_and_update_voltage(self, channel, voltage):
     payload:Payload = self.set_voltage0(channel, voltage)
     payload.set_prefix(Prefix.DacWrite)
     self.__write__(payload)
@@ -97,8 +91,7 @@ class AD5328:
 
   def __write__(self, payload):
     self.cs.off()
-    result = self.spi.write(payload.to_bytes())
-    print(result)
+    self.spi.write(payload.to_bytes())
     self.cs.on()
 
 if __name__ == '__main__':
